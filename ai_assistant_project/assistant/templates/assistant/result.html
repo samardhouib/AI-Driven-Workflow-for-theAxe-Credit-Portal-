@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CodeWizard</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'assistant/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="history-box">
+            <h2>History</h2>
+            <div class="history">
+                {% if history %}
+                    {% for entry in history %}
+                        <div class="history-entry">
+                            <p><strong>{{ entry.timestamp }}</strong></p>
+                            <pre class="history-code">{{ entry.code }}</pre>
+                            <form method="post" action="{% url 'delete_history_entry' forloop.counter0 %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No history available.</p>
+                {% endif %}
+            </div>
+        </div>
+        <button class="toggle-history">☰</button>
+        <div class="main-content">
+            <div class="header">
+                <h1>CodeWizard</h1>
+                <img src="{% static 'assistant/images/img.png' %}" alt="Logo" class="logo">
+            </div>
+            <p>Type your requirements below 👇 or upload a file to get customized output</p>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="generate-button">Generate</button>
+            </form>
+            <h2>Generated Output:</h2>
+            <textarea class="output-area" id="output-area" readonly>{% if output %}{{ output }}{% endif %}</textarea>
+            <a href="{% url 'download_output' %}" class="download-button">Download Output</a>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const historyBox = document.querySelector('.history-box');
+            const toggleButton = document.querySelector('.toggle-history');
+            const outputArea = document.getElementById('output-area');
+
+            if (toggleButton && historyBox) {
+                toggleButton.addEventListener('click', function() {
+                    historyBox.classList.toggle('collapsed');
+                    if (historyBox.classList.contains('collapsed')) {
+                        toggleButton.textContent = '▶'; // Change to a right-pointing arrow when collapsed
+                    } else {
+                        toggleButton.textContent = '☰'; // Change back to the menu icon when expanded
+                    }
+                });
+            }
+
+            const historyCodes = document.querySelectorAll('.history-code');
+            historyCodes.forEach(function(codeElement) {
+                codeElement.addEventListener('click', function() {
+                    outputArea.textContent = codeElement.textContent;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

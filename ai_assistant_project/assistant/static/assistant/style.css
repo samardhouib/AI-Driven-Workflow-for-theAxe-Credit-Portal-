@@ -1,0 +1,176 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1E2A38;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.action-button {
+    background-color: #6C63FF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.container {
+    display: flex;
+    width: 100%; /* Adjusted to fit the full viewport width */
+}
+
+.history-box {
+    position: relative;
+    width: 200px; /* Adjust the width as needed */
+    height: 100vh; /* Full viewport height */
+    background-color: #283949;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    transition: width 0.3s, padding 0.3s;
+}
+
+.history-box.collapsed {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.toggle-history {
+    position: absolute;
+    top: 10px;
+    left: 200px; /* Adjusted for initial position */
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    z-index: 1; /* Ensure the button stays on top */
+    transition: left 0.3s;
+}
+
+.history-box.collapsed ~ .toggle-history {
+    left: 0; /* Position toggle button outside the collapsed history box */
+}
+
+.history-box h2 {
+    color: #FFFFFF;
+    margin-top: 0;
+}
+
+.history {
+    margin-top: 20px;
+}
+
+.history-box.collapsed .history {
+    display: none;
+}
+
+.history-entry {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #34495E;
+    padding-bottom: 10px;
+}
+
+.history-entry pre {
+    background-color: #34495E;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #1E2A38;
+    color: #FFFFFF;
+    overflow-y: auto;
+    transition: margin-left 0.3s; /* Smooth transition when history box is collapsed */
+    margin-left: 0; /* Adjusted for initial position */
+}
+
+.history-box.collapsed ~ .main-content {
+    margin-left: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+}
+
+.generate-button {
+    display: block;
+    width: 20%; /* Full width */
+    padding: 10px;
+    background-color: #218838;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.output-area {
+    width: 100%;
+    height: 500px; /* Increased height */
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    resize: vertical; /* Allow resizing vertically */
+    color: #000;
+}
+
+.download-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.download-button:hover {
+    background-color: #218838;
+}
+
+form {
+    margin-top: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+pre {
+    text-align: left;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.delete-button {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 5px;
+}
